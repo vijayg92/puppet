@@ -1,0 +1,88 @@
+#!/bin/bash
+####################################
+### Author:- Vijay Singh Gosai  ####
+### Date:- 10-July-2017         ####
+### Purpose:- OpenRest Nginx    ####
+####################################
+# chkconfig: 345 91 10
+# description: Openresty Nginx
+# processname: nginx
+
+## Source function library ##
+. /etc/init.d/functions
+
+## Global Variables ##
+PIDFILE=<%= openresty_path_real %>/nginx/logs/nginx.pid
+prog=nginx
+exec=<%= openresty_path_real %>/nginx/sbin/nginx
+
+## Validation for OpenResty ##
+if [ ! -d <%= openresty_path_real %> ]  ; then
+     printf "Error: OpenResty doesn't exit!!!"
+     exit 1
+fi
+
+start() {
+  if [ -f "${pidfile}" ]; then
+          printf "OpenResty ${prog} process is already running at `cat ${pidfile}`."
+      else
+          printf "Starting OpenResty ${prog} process..."
+          ${exec};rc=$?
+          if [ ${rc} -eq 0 ]; then
+              printf "OpenResty ${prog} process has been started.\n"
+          else
+              printf "Error: While starting OpenResty ${prog} process.\n"
+              exit ${rc}
+          fi
+   fi
+}
+
+stop() {
+  if [ ! -f "${pidfile}" ]; then
+          printf "OpenResty ${prog} process is already stopped.\n"
+      else
+          printf "Stopping OpenResty ${prog} process..."
+          kill -SIGTERM `cat ${pidfile}`; rc=$?
+          if [ ${rc} -eq 0 ]; then
+              printf "OpenResty ${prog} process has been stopped.\n"
+          else
+              prinf "Error: While stopping OpenResty ${prog} process.\n"
+              exit ${rc}
+          fi
+   fi
+}
+
+status() {
+  if [ ! -f "${pidfile}" ]; then
+    printf "OpenResty ${prog} process is stopped.\n"
+  else
+    printf "OpenResty ${prog} process is runnning : `cat ${pidfile}`\n"
+  fi
+}
+
+restart() {
+    stop
+    start
+}
+
+## Main Program ##
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    status)
+        status
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart|status}\n"
+        exit 1
+esac
+
+exit 0

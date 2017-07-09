@@ -12,7 +12,7 @@
 . /etc/init.d/functions
 
 ## Global Variables ##
-PIDFILE=<%= openresty_path_real %>/nginx/logs/nginx.pid
+pidfile=<%= openresty_path_real %>/nginx/logs/nginx.pid
 prog=nginx
 exec=<%= openresty_path_real %>/nginx/sbin/nginx
 
@@ -53,10 +53,10 @@ stop() {
 }
 
 status() {
-  if [ ! -f "${pidfile}" ]; then
-    printf "OpenResty ${prog} process is stopped.\n"
-  else
+  if [ -f "${pidfile}" ]; then
     printf "OpenResty ${prog} process is runnning : `cat ${pidfile}`\n"
+  else
+    printf "OpenResty ${prog} process is stopped.\n"
   fi
 }
 

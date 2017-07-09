@@ -26,32 +26,18 @@ class openresty($openresty_version=undef, $pcre_version=undef, $openresty_path=u
         ensure => present
     }
 
-    exec { "PCRE Download":
-        command => "wget --no-cache https://ftp.pcre.org/pub/pcre/pcre-${pcre_version_real}.tar.gz",
+    exec { "PCRE Setup":
+        command => "wget --no-cache https://ftp.pcre.org/pub/pcre/pcre-${pcre_version_real}.tar.gz && tar -xvzf pcre-${pcre_version_real}.tar.gz",
         cwd     => '/tmp',
-        unless => "test ! -d /tmp/pcre-${pcre_version_real}.tar.gz",
+        creates => "/tmp/pcre-${pcre_version_real}/configure",
         require => Package['readline-devel', 'wget', 'pcre-devel', 'openssl-devel', 'gcc', 'curl', 'gcc-c++', 'autoconf', 'automake']
     }
 
-    exec { "PCRE Setup":
-        command => "tar -xvzf pcre-${pcre_version_real}.tar.gz",
-        cwd     => '/tmp',
-        creates => "/tmp/pcre-${pcre_version_real}/configure",
-        require => Exec["PCRE Download"]
-    }
-
-    exec { "OpenResty Download":
-        command => "wget --no-cache https://openresty.org/download/openresty-${openresty_version_real}.tar.gz",
-        cwd     => '/tmp',
-        unless => "test ! -d /tmp/openresty-${openresty_version_real}.tar.gz",
-        require => Exec["PCRE Setup"]
-    }
-
     exec { "OpenResty Setup":
-        command => "tar -xvzf openresty-${openresty_version_real}.tar.gz",
+        command => "wget --no-cache https://openresty.org/download/openresty-${openresty_version_real}.tar.gz && tar -xvzf openresty-${openresty_version_real}.tar.gz",
         cwd     => '/tmp',
         creates => "/tmp/openresty-${openresty_version_real}/configure",
-        require => Exec["OpenResty Download"]
+        require => Exec["PCRE Setup"]
     }
 
     exec { "OpenResty Installation":

@@ -1,0 +1,70 @@
+#!/bin/bash
+global_variables()
+{
+    doc_root=/appl/stats/webdocs
+	port_no=9999
+	log_dir=/logs/python_web
+	logfile=$log_dir/startup.log
+	pidfile=$log_dir/python_web.pid
+	if [ ! -d ${log_dir} ]
+        then
+        mkdir ${log_dir}
+    fi
+}
+
+##################### Don't Modify Beoynd This ##################################
+start() {
+		global_variables
+        if ps -p `cat $pidfile` > /dev/null 2>&1
+            then
+            echo -e "Python SimpleHTTP WebServer is Already Running-(`cat $pidfile`) \tStart::[FAILED] !!!"
+			exit 1
+		else
+            cd $doc_root && nohup python -m SimpleHTTPServer $port_no > $logfile 2>&1 &
+            RETVAL=$?
+            [ $RETVAL -eq "0" ] && echo -e "Python SimpleHTTP WebServer \tStarted:::[OK] !!!"
+            echo $! > $pidfile
+            return $RETVAL
+        fi
+}
+stop() {
+                global_variables
+				pid_stat=`cat $pidfile`
+                ps -p `cat $pidfile` > /dev/null 2>&1
+                if [ "$?" -eq "0" ]; then
+                    killps=`kill -9 $pid_stat`
+                    echo -e "Python SimpleHTTP WebServer \tStopped:::[OK] !!!"
+                else
+                        echo -e "Python SimpleHTTP WebServer is NotRunning \tStopped:::[FAILED] !!!"
+                fi
+        return $RETVAL
+}
+status() {
+			global_variables
+            pid_stat=`cat $pidfile`
+            ps -p `cat $pidfile` > /dev/null 2>&1
+            if [ "$?" -eq "0" ]; then
+                    echo -e "Python SimpleHTTP WebServer Running \tPID::$pid_stat !!!"
+            else
+                    echo -e "Python SimpleHTTP WebServer is Stopped !!!"
+            fi
+        return $RETVAL
+}
+
+case "$1" in
+        start)
+                start
+				;;
+        stop)
+                stop
+				;;
+        status)
+                status
+				;;
+        *)
+                echo " Usage:: { start || stop || status }"
+                exit 1
+                ;;
+esac
+exit 0
+

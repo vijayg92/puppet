@@ -1,0 +1,91 @@
+<html>
+<head>
+<title><%= apps_real %> GRID</title>
+<link rel="stylesheet" href="/grid/css/styles.css" />
+
+<script type="text/javascript" src="/grid/js/plugins/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="/grid/js/main.js"></script>
+<script type="text/javascript">
+
+ $(document).ready(function(){
+         updateContent();
+         setInterval(updateContent, 30000);
+
+});
+</script>
+</head>
+<HR>
+   <H3><B><a href="https://3.151.16.16/tmui/Control/jspmap/tmui/locallb/pool/resources.jsp?name=SETPAC_PRD_WEB1&startListIndex=0&showAll=true"  TARGET="_blank">Europe Zone</a></B></H3>
+
+<HR>
+
+<body class="popupbody">
+
+<table id="loncisprweb017_table" cellspacing="2" cellpadding="2" bgcolor="gray" border="1" style="width:100%" >
+        <tr>
+                <td align=center><B>HostName </B></td>
+                <td align=center><B> Load </B></td>
+                <td align=center><B> CPU (idle %)</B></td>
+                <td align=center><B> Mem (free Mb)</B></td>
+                <td align=center><B> Uptime (days)</B></td>
+                <td colspan="1"  align=center><B>Disk Usage</B></td>
+                <td colspan="1" align=center><B> Monitoring </B></td>
+        </tr>
+
+oncisprweb017.txt" >
+ <td align="center"><div id="loncisprweb017-Ahostname" ></div></td>
+d="10"></div></td>
+reshold-low="70"></div></td>
+2000"></div></td>
+                <td align="center"><div id="loncisprweb017-Auptime"></div></td>
+5"></div></td>
+="25" title="ICINGA Dashboard" /></a></td>
+                </tr>
+</table>
+
+<table id="loncisprweb017_node_table" cellspacing="2" cellpadding="2" border="1" style="width:100%">
+        <tr>
+                <td colspan="6"  align=center><B>Apache - <dic id="loncisprweb017-Aversion"></B></td>
+                <td colspan="2"  align=center><B>Tomcat - <dic id="loncisprweb017-Tversion"> </B></td>
+        </tr>
+        <tr>
+
+                <td align="center" nowrap><B> IP </td>
+                <td align="center" nowrap><B>Status</B></td>
+                <td align="center" nowrap><B>Mem (Mb)</B></td>
+                <td align="center" nowrap><B>Cpu (%)</B></td>
+                <td align="center" nowrap><B>Conns</B></td>
+                <td align="center" nowrap><B>Threads</B></td>
+                <td align="center" wrap><B>Status</B></td>
+                <td align="center" wrap><B>Cpu (%)</B></td>
+        </tr>
+
+oncisprweb017.txt" >
+            <td align="center" nowrap>3.151.224.23</td>
+"></div></td>
+            <td align="center"><div id="loncisprweb017-Amemapache2" data-threshold="1000"></div></td>
+            <td align="center"><div id="loncisprweb017-A2cpu"></div></td>
+            <td align="center"><div id="loncisprweb017-A2conns"></div></td>
+            <td align="center"><div id="loncisprweb017-A2threads"></div></td>
+
+le="border:0"></div></td>
+            <td align="center"><div id="loncisprweb017-Atomcatcpu0" ></div></td>
+                </tr>
+
+oncisprweb017.txt" >
+
+            <td align="center" nowrap>3.151.224.24</td>
+"></div></td>
+            <td align="center"><div id="loncisprweb017-Amemapache3" data-threshold="1000"></div></td>
+            <td align="center"><div id="loncisprweb017-A3cpu"></div></td>
+            <td align="center"><div id="loncisprweb017-A3conns"></div></td>
+            <td align="center"><div id="loncisprweb017-A3threads"></div></td>
+
+le="border:0"></div></td>
+            <td align="center"><div id="loncisprweb017-Atomcatcpu1" ></div></td>
+                </tr>
+
+</table>
+</body>
+</html>
+
